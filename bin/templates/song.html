@@ -17,18 +17,11 @@
         </h3>
         <h2>Lyrics</h2>
         <p th:text="${song.lyrics}"></p>
-
         
-        <h2>Comments about this song</h2>
-        <form th:action="@{/song/} + ${song.id}" method="POST">
-            <label>Your name: <input type="text" name="userName" /></label>
-            <label>Comment: <input type="text" name="comment" /></label>
-            <input type="submit" value="Submit" />
-        </form>
-        
+        <h2>Comments about this song</h2>        
         <div>
-            <label>Your name: <input type="text" name="userNameApi" /></label>
-            <label>Comment: <input type="text" name="commentApi" /></label>
+            <label>Your name: <input type="text" name="userNameApi" placeholder="Name"/></label>
+            <label>Comment: <input type="text" name="commentApi" placeholder="Comment" /></label>
             <input type="hidden" name="songId" th:value="${song.id}"></input>
             <button class="submitComment">Submit</button>
         </div>

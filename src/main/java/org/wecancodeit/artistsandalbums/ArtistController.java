@@ -53,7 +53,7 @@ public class ArtistController {
 		return "song";
 	}
 
-	@RequestMapping(value = "/album/{id}", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/album/{id}", method = RequestMethod.POST)
 	public String addAlbumComment(@PathVariable(name = "id") Long id, String userName, String comment, Album album) {
 		albumCommentRepo.save(new AlbumComment(userName, comment, albumRepo.findOne(id)));
 		return "redirect:/album/" + id;
@@ -62,5 +62,5 @@ public class ArtistController {
 	public String addSongComment(@PathVariable(name = "id") Long id, String userName, String comment, Song song) {
 		songCommentRepo.save(new SongComment(userName, comment, songRepo.findOne(id)));
 		return "redirect:/song/" + id;
-	}
+	}*/
 }

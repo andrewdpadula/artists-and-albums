@@ -1,12 +1,12 @@
 package org.wecancodeit.artistsandalbums;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Artist {
@@ -20,14 +20,14 @@ public class Artist {
 
 	@OneToMany(mappedBy = "artist")
 	private Collection<Song> songs;
+
 	public Artist() {
-		
+
 	}
 
-	public Artist(String name, String recordLabel, Album...albums) {
+	public Artist(String name, String recordLabel) {
 		this.name = name;
 		this.recordLabel = recordLabel;
-		this.albums = Arrays.asList(albums);
 	}
 
 	public long getId() {
@@ -50,8 +50,5 @@ public class Artist {
 	public String toString() {
 		return name;
 	};
-	
-	
-	
-	
+
 }

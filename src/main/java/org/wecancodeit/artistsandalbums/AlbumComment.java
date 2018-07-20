@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class AlbumComment {
 	@Id
@@ -13,6 +15,7 @@ public class AlbumComment {
 	private String userName;
 	@Lob
 	private String comment;
+	@JsonIgnore
 	@ManyToOne
 	private Album album;
 	

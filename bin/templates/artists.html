@@ -11,16 +11,24 @@
         <h1>All Artists</h1>
     </header>
     <main>
-        <ul>
+        <ul class="artistList">
             <li th:each="artist : ${artists}">
-                <a th:href="@{/artists/} + ${artist.id}">
+                <a th:href="|@{/artists/}${artist.id}|">
 		    		<span th:text="${artist.name}"></span>
 		    	</a>
             </li>
         </ul>
+        <h2>Add an artist</h2>
+        <div>
+            <label>Artist name: <input type="text" name="artistNameApi" placeholder="Name"/></label>
+            <label>Record Label: <input type="text" name="recordLabelApi" placeholder="Record Label" /></label>
+            <!-- <input type="hidden" name="artistId" th:value="${artist.id}"></input> -->
+            <button class="submitArtist">Submit</button>
+        </div>
     </main>
     <footer>
         <small>&copy; 2018</small> 
     </footer>
+    <script src="/js/artistsapp.js"></script>
 </body>
 </html>

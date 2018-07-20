@@ -25,17 +25,17 @@
             </li>
         </ol>
         <h2>Comments about this album</h2>
-        <form th:action="@{/album/} + ${album.id}" method="POST">
-            <label>Your name: <input type="text" name="userName" /></label>
-            <label>Comment: <input type="text" name="comment" /></label>
-            <input type="submit" value="Submit" />
-        </form>
-        <ul>
+        <div>
+            <label>Your name: <input type="text" name="userNameApi" placeholder="Name" /></label>
+            <label>Comment: <input type="text" name="commentApi" placeholder="Comment" /></label>
+            <input type="hidden" name="albumId" th:value="${album.id}"></input>
+            <button class="submitComment">Submit</button>
+        </div>
+        <ul class="commentList">
             <li th:each="albumComment : ${album.albumComments}">
                 <span th:text="|${albumComment.userName}: ${albumComment.comment}|"></span>
             </li>
         </ul>
-
     </main>
     <footer>
         <ul>
@@ -53,5 +53,6 @@
             </li>
         </ul>
     </footer>    
+    <script src="/js/albumapp.js"></script>
 </body>
 </html>
