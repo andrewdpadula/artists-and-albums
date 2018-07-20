@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title th:text="|Album: ${album.albumName}|"></title>
+</head>
+<body>
+    <header>
+        <h1 th:text="${album.albumName}">
+        </h1>
+        <h2 th:text="|an album by ${album.artist}|"></h2>
+    </header>
+    <main>
+        <img th:src="${album.coverImage}" />
+        <h3 th:text="|Released ${album.releaseDate}|"></h3>
+        <h3 th:text="|Genre: ${album.genre}|"></h3>
+        <h2>Songs</h2>
+        <ol>
+            <li th:each="song : ${album.songs}">
+                <a th:href="@{/song/} + ${song.id}">
+                    <span th:text="${song.songName}"></span>
+                </a>
+            </li>
+        </ol>
+        <h2>Comments about this album</h2>
+        <form th:action="@{/album/} + ${album.id}" method="POST">
+            <label>Your name: <input type="text" name="userName" /></label>
+            <label>Comment: <input type="text" name="comment" /></label>
+            <input type="submit" value="Submit" />
+        </form>
+        <ul>
+            <li th:each="albumComment : ${album.albumComments}">
+                <span th:text="|${albumComment.userName}: ${albumComment.comment}|"></span>
+            </li>
+        </ul>
+
+    </main>
+    <footer>
+        <ul>
+            <li>
+                <a class="artistLink" th:href="@{/artists/} + ${album.artist.id}">
+                    <span th:text="|Return to ${album.artist} page|"></span>
+                </a>
+            </li>
+            <li>
+                <a class="artistsLink" th:href="@{/artists}">Return to All Artists page
+                </a>
+            </li>
+            <li>
+                <small>&copy; 2018</small> 
+            </li>
+        </ul>
+    </footer>    
+</body>
+</html>

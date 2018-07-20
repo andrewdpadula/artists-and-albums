@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title th:text="|Artist: ${artist.name}|"></title>
+</head>
+<body>
+    <header>
+        <h1 th:text="|Artist: ${artist.name}|">
+        </h1>
+        <h3 th:text="|Label: ${artist.recordLabel}|"></h3>
+    </header>
+    <main>
+        <h2>Albums</h2>
+        <ul>
+            <li th:each="album : ${artist.albums}">
+                <a th:href="@{/album/} + ${album.id}">
+                    <span th:text="${album.albumName}"></span>
+                </a>
+            </li>
+        </ul>
+    </main>
+    <footer>
+        <a class="artistsLink" th:href="@{/artists}">Return to All Artists page</a>
+        <br />
+        <small>&copy; 2018</small> 
+    </footer>
+</body>
+</html>

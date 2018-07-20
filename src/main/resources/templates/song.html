@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title th:text="|Song: ${song.songName}|"></title>
+</head>
+<body>
+    <header>
+        <h1 th:text='|"${song.songName}" by ${song.album.artist}|'>
+        </h1>
+        <h3 th:text="|From the album ${song.album}|"></h3>
+    </header>
+    <main>
+        <h3 th:text="|Length: ${song.length}|">
+        </h3>
+        <h2>Lyrics</h2>
+        <p th:text="${song.lyrics}"></p>
+
+        
+        <h2>Comments about this song</h2>
+        <form th:action="@{/song/} + ${song.id}" method="POST">
+            <label>Your name: <input type="text" name="userName" /></label>
+            <label>Comment: <input type="text" name="comment" /></label>
+            <input type="submit" value="Submit" />
+        </form>
+        
+        <div>
+            <label>Your name: <input type="text" name="userNameApi" /></label>
+            <label>Comment: <input type="text" name="commentApi" /></label>
+            <input type="hidden" name="songId" th:value="${song.id}"></input>
+            <button class="submitComment">Submit</button>
+        </div>
+        <ul class="commentList">
+            <li th:each="songComment : ${song.songComments}">
+                <span th:text="|${songComment.userName}: ${songComment.comment}|"></span>
+            </li>
+        </ul>
+    </main>
+    <footer>
+        <ul>
+            <li>
+                <a class="albumLink" th:href="@{/album/} + ${song.album.id}">
+                    <span th:text="|Return to ${song.album} page|"></span>
+                </a>
+            </li>
+            <li>
+                <a class="artistLink" th:href="@{/artists/} + ${song.album.artist.id}">
+                    <span th:text="|Return to ${song.album.artist} page|"></span>
+                </a>
+            </li>
+            <li>
+                <a class="artistsLink" th:href="@{/artists}">Return to All Artists page</a>
+            </li>
+            <li>
+                <small>&copy; 2018</small> 
+            </li>
+        </ul>
+    </footer>
+    <script src="/js/songapp.js"></script>
+</body>
+</html>
