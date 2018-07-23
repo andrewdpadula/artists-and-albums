@@ -1,3 +1,4 @@
+//add song comment
 const submitButton = document.querySelector(".submitComment");
 const songId = document.querySelector("[name='songId']");
 const commentList = document.querySelector(".commentList");

@@ -24,7 +24,7 @@ public class ArtistPopulator implements CommandLineRunner {
 		Artist nirvana = artistRepo.save(new Artist("Nirvana", "DGC Records"));
 		Artist theZombies = artistRepo.save(new Artist("The Zombies", "Decca Records"));
 		
-		Album no1Record = albumRepo.save(new Album("#1 Record", "August 1972", "Rock", "/img/no-1-record.jpg", bigStar));
+		Album no1Record = albumRepo.save(new Album("Number 1 Record", "August 1972", "Rock", "/img/no-1-record.jpg", bigStar));
 		Album radioCity = albumRepo.save(new Album("Radio City", "02.01.1974", "Rock", "/img/radio-city.jpg", bigStar));
 		Album third = albumRepo.save(new Album("Third", "03.18.1978", "Rock", "/img/third.jpg", bigStar));
 		Album bleach = albumRepo.save(new Album("Bleach", "06.15.1989", "Grunge", "/img/bleach.jpg", nirvana));

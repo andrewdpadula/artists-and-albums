@@ -17,18 +17,20 @@
         <h3 th:text="|Released ${album.releaseDate}|"></h3>
         <h3 th:text="|Genre: ${album.genre}|"></h3>
         <h2>Songs</h2>
-        <ol>
+        <ol class="songList">
             <li th:each="song : ${album.songs}">
-                <a th:href="@{/song/} + ${song.id}">
+                <a th:href="|@{/artists/}${album.artist.name}@{/album/}${album.albumName}@{/song/}${song.id}|">
                     <span th:text="${song.songName}"></span>
                 </a>
+                <button class="deleteSong">Delete</button>
+                <button class="editSong">Edit</button>
             </li>
         </ol>
         <h2>Comments about this album</h2>
         <div>
             <label>Your name: <input type="text" name="userNameApi" placeholder="Name" /></label>
             <label>Comment: <input type="text" name="commentApi" placeholder="Comment" /></label>
-            <input type="hidden" name="albumId" th:value="${album.id}"></input>
+            <input type="hidden" name="albumName" th:value="${album.albumName}"></input>
             <button class="submitComment">Submit</button>
         </div>
         <ul class="commentList">
@@ -40,7 +42,7 @@
     <footer>
         <ul>
             <li>
-                <a class="artistLink" th:href="@{/artists/} + ${album.artist.id}">
+                <a class="artistLink" th:href="|@{/artists/}${album.artist.name}|">
                     <span th:text="|Return to ${album.artist} page|"></span>
                 </a>
             </li>

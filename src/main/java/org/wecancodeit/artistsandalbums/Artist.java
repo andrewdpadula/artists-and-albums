@@ -14,9 +14,10 @@ public class Artist {
 	@GeneratedValue
 	private long id;
 	private String name;
+	private String recordLabel;
+
 	@OneToMany(mappedBy = "artist")
 	private Collection<Album> albums;
-	private String recordLabel;
 
 	@OneToMany(mappedBy = "artist")
 	private Collection<Song> songs;

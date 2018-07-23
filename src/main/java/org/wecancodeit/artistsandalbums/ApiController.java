@@ -28,12 +28,12 @@ public class ApiController {
 	SongCommentRepository songCommentRepo;
 
 	//post albumComment
-	@RequestMapping(value = "/album/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/album/{albumName}", method = RequestMethod.POST)
 	public Collection<AlbumComment> addAlbumComment(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "comment") String comment,
-			@PathVariable(name = "id") Long id){
-		albumCommentRepo.save(new AlbumComment(userName, comment, albumRepo.findOne(id)));
-		Collection<AlbumComment> albumComment = albumRepo.findOne(id).getAlbumComments();
+			@PathVariable(name = "albumName") String albumName){
+		albumCommentRepo.save(new AlbumComment(userName, comment, albumRepo.findByAlbumName(albumName)));
+		Collection<AlbumComment> albumComment = albumRepo.findByAlbumName(albumName).getAlbumComments();
 		return albumComment;
 	}
 	
@@ -47,13 +47,55 @@ public class ApiController {
 			return songComment;
 	}
 
-	//post new artist
+	//add an artist
 	@RequestMapping(value = "/artists/", method = RequestMethod.POST)
 	public Collection<Artist> addArtist(@RequestParam(value = "name") String name,
 			@RequestParam(value = "recordLabel") String recordLabel){
 		if (artistRepo.findByName(name) == null) {
 			artistRepo.save(new Artist(name, recordLabel));
 		}
+		return (Collection<Artist>) artistRepo.findAll();
+	}
+	
+	//add an album
+	@RequestMapping(value = "/artists/{name}/album/", method = RequestMethod.POST)
+	public Collection<Album> addAlbum(@PathVariable(name = "name") String name,
+			@RequestParam(value = "albumName") String albumName,
+			@RequestParam(value = "releaseDate") String releaseDate,
+			@RequestParam(value = "genre") String genre){
+			if(albumRepo.findByAlbumName(albumName) == null) {
+				albumRepo.save(new Album(albumName, releaseDate, genre, null, artistRepo.findByName(name)));
+		}
+		return artistRepo.findByName(name).getAlbums();
+	}
+	
+	//delete song
+	@RequestMapping(value = "/album/{albumName}/song", method = RequestMethod.DELETE)
+	public Collection<Song> deleteSong(@PathVariable(name = "albumName") String albumName,
+			@RequestParam(value = "id") Long id){
+		songRepo.delete(id);
+		return albumRepo.findByAlbumName(albumName).getSongs();
+	}
+	
+	//delete album
+	@RequestMapping(value = "/artists/{name}/album", method = RequestMethod.DELETE)
+	public Collection<Album> deleteAlbum(@PathVariable(name = "name") String name,
+			@RequestParam(value = "albumName") String albumName){
+		for (Song song : albumRepo.findByAlbumName(albumName).getSongs()) {
+			songRepo.delete(song);
+		}
+		albumRepo.delete(albumRepo.findByAlbumName(albumName));
+		return artistRepo.findByName(name).getAlbums();
+	}
+	
+	
+	//delete artist
+	@RequestMapping(value = "/artists/", method = RequestMethod.DELETE)
+	public Collection<Artist> deleteArtist(@RequestParam(name = "name") String name){
+		for (Album album : artistRepo.findByName(name).getAlbums()) {
+			albumRepo.delete(album);
+		}
+		artistRepo.delete(artistRepo.findByName(name));
 		return (Collection<Artist>) artistRepo.findAll();
 	}
 }

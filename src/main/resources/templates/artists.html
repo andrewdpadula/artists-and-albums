@@ -13,16 +13,17 @@
     <main>
         <ul class="artistList">
             <li th:each="artist : ${artists}">
-                <a th:href="|@{/artists/}${artist.id}|">
+                <a th:href="|@{/artists/}${artist.name}|">
 		    		<span th:text="${artist.name}"></span>
-		    	</a>
+                </a>
+                <button class="deleteArtist">Delete</button>
+                <button class="editArtist">Edit</button>
             </li>
         </ul>
         <h2>Add an artist</h2>
         <div>
             <label>Artist name: <input type="text" name="artistNameApi" placeholder="Name"/></label>
             <label>Record Label: <input type="text" name="recordLabelApi" placeholder="Record Label" /></label>
-            <!-- <input type="hidden" name="artistId" th:value="${artist.id}"></input> -->
             <button class="submitArtist">Submit</button>
         </div>
     </main>

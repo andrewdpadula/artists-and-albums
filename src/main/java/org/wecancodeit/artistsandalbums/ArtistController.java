@@ -35,32 +35,24 @@ public class ArtistController {
 		return "artists";
 	}
 
-	@RequestMapping("/artists/{id}")
-	public String getArtist(@PathVariable(name = "id") Long id, Model model) {
-		model.addAttribute("artist", artistRepo.findOne(id));
+	@RequestMapping("/artists/{name}")
+	public String getArtist(@PathVariable(name = "name") String name, Model model) {
+		model.addAttribute("artist", artistRepo.findByName(name));
 		return "artist";
 	}
 
-	@RequestMapping("album/{id}")
-	public String getAlbum(@PathVariable(name = "id") Long id, Model model) {
-		model.addAttribute("album", albumRepo.findOne(id));
+	@RequestMapping("/artists/{name}/album/{albumName}")
+	public String getAlbum(@PathVariable(name = "name") String name,
+			@PathVariable(name = "albumName") String albumName, Model model) {
+		model.addAttribute("album", albumRepo.findByAlbumName(albumName));
 		return "album";
 	}
 
-	@RequestMapping("song/{id}")
-	public String getSong(@PathVariable(name = "id") Long id, Model model) {
+	@RequestMapping("/artists/{name}/album/{albumName}/song/{id}")
+	public String getSong(@PathVariable(name = "name") String name,
+			@PathVariable(name = "albumName") String albumName,			
+			@PathVariable(name = "id") Long id, Model model) {
 		model.addAttribute("song", songRepo.findOne(id));
 		return "song";
 	}
-
-/*	@RequestMapping(value = "/album/{id}", method = RequestMethod.POST)
-	public String addAlbumComment(@PathVariable(name = "id") Long id, String userName, String comment, Album album) {
-		albumCommentRepo.save(new AlbumComment(userName, comment, albumRepo.findOne(id)));
-		return "redirect:/album/" + id;
-	}
-	@RequestMapping(value = "/song/{id}", method = RequestMethod.POST)
-	public String addSongComment(@PathVariable(name = "id") Long id, String userName, String comment, Song song) {
-		songCommentRepo.save(new SongComment(userName, comment, songRepo.findOne(id)));
-		return "redirect:/song/" + id;
-	}*/
 }

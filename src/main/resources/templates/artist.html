@@ -14,13 +14,23 @@
     </header>
     <main>
         <h2>Albums</h2>
-        <ul>
+        <ul class="albumList">
             <li th:each="album : ${artist.albums}">
-                <a th:href="@{/album/} + ${album.id}">
+                <a th:href="|@{/artists/}${artist.name}@{/album/}${album.albumName}|">
                     <span th:text="${album.albumName}"></span>
                 </a>
+                <button class="deleteAlbum">Delete</button>
+                <button class="editAlbum">Edit</button>
             </li>
         </ul>
+        <h2>Add an album</h2>
+        <div>
+            <label>Album name: <input type="text" name="albumNameApi" placeholder="Album Name"/></label>
+            <label>Release Date: <input type="text" name="releaseDateApi" placeholder="Release Date" /></label>
+            <label>Genre: <input type="text" name="genreApi" placeholder="Genre" /></label>
+            <input type="hidden" name="artistName" th:value="${artist.name}"></input>
+            <button class="submitAlbum">Submit</button>
+        </div>
     </main>
     <footer>
         <a class="artistsLink" th:href="@{/artists}">Return to All Artists page</a>
