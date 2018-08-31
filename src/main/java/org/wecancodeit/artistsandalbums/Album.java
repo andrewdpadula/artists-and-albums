@@ -33,7 +33,6 @@ public class Album {
 	private Collection<AlbumComment> albumComments;
 
 	public Album() {
-		
 	}
 
 	public Album(String albumName, String releaseDate, String genre, String coverImage, Artist artist, AlbumComment ... albumComments) {
